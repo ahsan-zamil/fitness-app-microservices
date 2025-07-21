@@ -17,15 +17,16 @@ import java.util.stream.Collectors;
 public class ActivityService {
 
     private final ActivityRepository activityRepository;
-    // Removed: private final UserValidationService userValidationService;
+    private final UserValidationService userValidationService;
     // Removed: private final RabbitTemplate rabbitTemplate;
     // Removed: @Value fields for RabbitMQ
 
     public ActivityResponse trackActivity(ActivityRequest request) {
 
-        // Removed the user validation block
-        // boolean isValidUser = userValidationService.validateUser(request.getUserId());
-        // if (!isValidUser) { ... }
+         boolean isValidUser = userValidationService.validateUser(request.getUserId());
+        if (!isValidUser) {
+            throw new RuntimeException("Invalid User: " + request.getUserId());
+        }
 
         Activity activity = Activity.builder()
                 .userId(request.getUserId())
