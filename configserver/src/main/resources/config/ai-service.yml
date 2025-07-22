@@ -1,0 +1,34 @@
+server:
+  port: 8083
+
+spring:
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/firnessrecommendation
+      database: firnessrecommendation
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+
+# Custom RabbitMQ properties for your application's logic
+rabbitmq:
+  exchange:
+    name: fitness.exchange
+  queue:
+    name: activity.queue
+  routing:
+    key: activity.tracking
+
+# --- THIS SECTION IS NOW FIXED ---
+# Values are now placed directly in the file to avoid environment variable issues.
+gemini:
+  api:
+    url: "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent"
+    key: "AIzaSyCXPRrNNSFbwnKW-eoS-KCzO-bufifXgew"
