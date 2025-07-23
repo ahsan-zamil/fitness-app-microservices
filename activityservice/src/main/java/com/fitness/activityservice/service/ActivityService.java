@@ -30,7 +30,7 @@ public class ActivityService {
 
     public ActivityResponse trackActivity(ActivityRequest request) {
 
-         boolean isValidUser = userValidationService.validateUser(request.getUserId());
+        boolean isValidUser = userValidationService.validateUser(request.getUserId());
         if (!isValidUser) {
             throw new RuntimeException("Invalid User: " + request.getUserId());
         }
@@ -46,6 +46,7 @@ public class ActivityService {
 
         Activity savedActivity = activityRepository.save(activity);
 
+        // Publish to RabbitMQ for AI Processing
         try {
             rabbitTemplate.convertAndSend(exchange, routingKey, savedActivity);
         } catch(Exception e) {
@@ -55,7 +56,6 @@ public class ActivityService {
         return mapToResponse(savedActivity);
     }
 
-    // --- This mapping method is now exactly as you wrote it ---
     private ActivityResponse mapToResponse(Activity activity){
         ActivityResponse response = new ActivityResponse();
         response.setId(activity.getId());
