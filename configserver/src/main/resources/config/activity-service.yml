@@ -1,7 +1,6 @@
-server:
-  port: 8082
-
 spring:
+  application:
+    name: activity-service
   data:
     mongodb:
       uri: mongodb://localhost:27017/fitnessactivity
@@ -11,6 +10,9 @@ spring:
     port: 5672
     username: guest
     password: guest
+
+server:
+  port: 8082
 
 eureka:
   client:
