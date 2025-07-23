@@ -5,7 +5,6 @@ import lombok.Data;
 import java.time.LocalDateTime;
 import java.util.Map;
 
-
 @Data
 public class Activity {
     private String id;
@@ -17,5 +16,4 @@ public class Activity {
     private Map<String, Object> additionalMetrics;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
-
 }
